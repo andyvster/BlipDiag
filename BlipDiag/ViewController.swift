@@ -17,6 +17,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var txtHead: UILabel!
     @IBOutlet weak var txtMagAcc: UILabel!
     
+    @IBOutlet weak var txtTrue: UILabel!
+    
     var locationManger: CLLocationManager!
     var startLocation: CLLocation!
     var functRunner = Timer()
@@ -30,6 +32,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManger.desiredAccuracy = kCLLocationAccuracyBest
         locationManger.requestWhenInUseAuthorization()
          locationManger.startUpdatingLocation()
+        locationManger.startUpdatingHeading()
        // self.functRunner = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.callULocation), userInfo: nil, repeats: true)
     }
 
@@ -49,9 +52,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         txtLat.text = String(format: "%.4f", startLocation.coordinate.latitude)
         txtLong.text = String(format: "%.4f", startLocation.coordinate.longitude)
         
-
-    
               
+    }
+    
+    func locationManager(_ manager:CLLocationManager, didUpdateHeading newHeading: CLHeading){
+        txtHead.text = String(format: "%.4f", newHeading.magneticHeading)
+        txtTrue.text = String(format: "%.4f", newHeading.trueHeading)
+        txtMagAcc.text = String(format: "%.4f", newHeading.headingAccuracy)
+        
     }
   
 }
