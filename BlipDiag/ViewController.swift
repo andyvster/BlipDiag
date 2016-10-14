@@ -19,14 +19,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     var locationManger: CLLocationManager = CLLocationManager()
     var startLocation: CLLocation!
+    var functRunner = Timer()
+    var counter: CGFloat = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        locationManger.desiredAccuracy = kCLLocationAccuracyBest
+        
         locationManger.delegate = self
+        locationManger.desiredAccuracy = kCLLocationAccuracyBest
         locationManger.requestWhenInUseAuthorization()
-        locationManger.startUpdatingLocation()
+        self.functRunner = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.callULocation), userInfo: nil, repeats: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,11 +37,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-    func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
-        startLocation = newLocation
-        txtLat.text = String(format: "%.4f", startLocation.coordinate.latitude)
+    func callULocation(){
+        locationManger.startUpdatingLocation()
+        counter = counter + 1
+        txtLong.text = String(describing: counter)
+    }
+    
+  func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {   startLocation = newLocation
+        txtLat.text = "Is This Being Called?"
+       // txtLat.text = String(format: "%.4f", startLocation.coordinate.latitude)
+        print(String(format: "%.4f", startLocation.coordinate.latitude))
         
     }
-
+    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+        txtLat.text = "Error"
+    }
 }
 
