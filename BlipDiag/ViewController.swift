@@ -67,7 +67,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         txtHead.text = String(format: "%.4f", magH)
         txtTrue.text = String(format: "%.4f", truH)
         txtMagAcc.text = String(format: "%.4f", newHeading.headingAccuracy)
-        
+        rotateImages()
     }
   
     func rotateImages(){
