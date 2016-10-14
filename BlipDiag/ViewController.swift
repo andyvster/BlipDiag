@@ -12,6 +12,7 @@ import CoreLocation
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
 
+    @IBOutlet weak var imgMag1: UIImageView!
     @IBOutlet weak var imgTru: UIImageView!
     @IBOutlet weak var imgMag: UIImageView!
     @IBOutlet weak var txtLat: UILabel!
@@ -49,8 +50,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
     func callULocation(){
         locationManger.startUpdatingLocation()
-        counter = counter + 1
-        txtLong.text = String(describing: counter)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -63,7 +62,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func locationManager(_ manager:CLLocationManager, didUpdateHeading newHeading: CLHeading){
         magH = CGFloat(newHeading.magneticHeading)
-        truH = CGFloat(newHeading.magneticHeading)
+        truH = CGFloat(newHeading.trueHeading)
         txtHead.text = String(format: "%.4f", magH)
         txtTrue.text = String(format: "%.4f", truH)
         txtMagAcc.text = String(format: "%.4f", newHeading.headingAccuracy)
@@ -71,10 +70,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
   
     func rotateImages(){
-        UIView.animate(withDuration: 0.5, animations: {
+        
             self.rotateAngleH = 360 - self.magH
             self.rotateAngleT = 360 - self.truH
-            self.imgMag.transform = CGAffineTransform(rotationAngle: CGFloat(self.rotateAngleH) * CGFloat(M_PI / 180.0))
+        UIView.animate(withDuration: 0.5, animations: {
+            self.imgMag1.transform = CGAffineTransform(rotationAngle: CGFloat(self.rotateAngleH) * CGFloat(M_PI / 180.0))})
+        
+        UIView.animate(withDuration: 0.5, animations: {
             self.imgTru.transform = CGAffineTransform(rotationAngle: CGFloat(self.rotateAngleT) * CGFloat(M_PI / 180.0))})
     
     }

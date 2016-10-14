@@ -115,6 +115,7 @@
                     </view>
                     <connections>
                         <outlet property="imgMag" destination="Alc-Us-Kb1" id="vMB-bC-yVD"/>
+                        <outlet property="imgMag1" destination="DGQ-Qb-Arq" id="wCd-hs-ld9"/>
                         <outlet property="imgTru" destination="Alc-Us-Kb1" id="2OT-pc-GEP"/>
                         <outlet property="txtHead" destination="VpZ-nX-Pk3" id="UMt-OI-WuQ"/>
                         <outlet property="txtLat" destination="2DO-dc-Icd" id="2eM-N7-202"/>
