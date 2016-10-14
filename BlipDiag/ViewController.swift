@@ -17,7 +17,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var txtHead: UILabel!
     @IBOutlet weak var txtMagAcc: UILabel!
     
-    var locationManger: CLLocationManager = CLLocationManager()
+    var locationManger: CLLocationManager!
     var startLocation: CLLocation!
     var functRunner = Timer()
     var counter: CGFloat = 0.0
@@ -25,11 +25,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+        locationManger = CLLocationManager()
         locationManger.delegate = self
         locationManger.desiredAccuracy = kCLLocationAccuracyBest
         locationManger.requestWhenInUseAuthorization()
-        self.functRunner = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.callULocation), userInfo: nil, repeats: true)
+         locationManger.startUpdatingLocation()
+       // self.functRunner = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.callULocation), userInfo: nil, repeats: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,14 +44,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         txtLong.text = String(describing: counter)
     }
     
-  func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {   startLocation = newLocation
-        txtLat.text = "Is This Being Called?"
-       // txtLat.text = String(format: "%.4f", startLocation.coordinate.latitude)
-        print(String(format: "%.4f", startLocation.coordinate.latitude))
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        startLocation = locations[0]
+        txtLat.text = String(format: "%.4f", startLocation.coordinate.latitude)
+        txtLong.text = String(format: "%.4f", startLocation.coordinate.longitude)
         
+
+    
+              
     }
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-        txtLat.text = "Error"
-    }
+  
 }
 
