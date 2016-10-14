@@ -12,6 +12,8 @@
 		AC69A0C11DB1714A0022248A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC69A0BF1DB1714A0022248A /* Main.storyboard */; };
 		AC69A0C31DB1714A0022248A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC69A0C21DB1714A0022248A /* Assets.xcassets */; };
 		AC69A0C61DB1714A0022248A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC69A0C41DB1714A0022248A /* LaunchScreen.storyboard */; };
+		AC69A0CE1DB199A80022248A /* w.png in Resources */ = {isa = PBXBuildFile; fileRef = AC69A0CD1DB199A70022248A /* w.png */; };
+		AC69A0D21DB19A950022248A /* 8.png in Resources */ = {isa = PBXBuildFile; fileRef = AC69A0D11DB19A950022248A /* 8.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		AC69A0C21DB1714A0022248A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AC69A0C51DB1714A0022248A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AC69A0C71DB1714A0022248A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC69A0CD1DB199A70022248A /* w.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = w.png; path = ../../../w.png; sourceTree = "<group>"; };
+		AC69A0D11DB19A950022248A /* 8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 8.png; path = ../../../8.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +63,9 @@
 				AC69A0BF1DB1714A0022248A /* Main.storyboard */,
 				AC69A0C21DB1714A0022248A /* Assets.xcassets */,
 				AC69A0C41DB1714A0022248A /* LaunchScreen.storyboard */,
+				AC69A0D11DB19A950022248A /* 8.png */,
 				AC69A0C71DB1714A0022248A /* Info.plist */,
+				AC69A0CD1DB199A70022248A /* w.png */,
 			);
 			path = BlipDiag;
 			sourceTree = "<group>";
@@ -124,9 +130,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC69A0D21DB19A950022248A /* 8.png in Resources */,
 				AC69A0C61DB1714A0022248A /* LaunchScreen.storyboard in Resources */,
 				AC69A0C31DB1714A0022248A /* Assets.xcassets in Resources */,
 				AC69A0C11DB1714A0022248A /* Main.storyboard in Resources */,
+				AC69A0CE1DB199A80022248A /* w.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
