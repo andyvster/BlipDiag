@@ -90,6 +90,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
         txtCourse.text = String(format: "%.4f", startLocation.course)
         if targetLocation != nil{
             self.bearing = getHeadingForDirectionFromCoordinate(fromLoc: startLocation.coordinate, toCoordinate: targetLocation)
+            if self.bearing < 0 {
+                self.bearing = self.bearing + 360
+            }
             txtBearTar.text = String(format: "%.4f", bearing)
             getDistance()
         }
