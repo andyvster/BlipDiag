@@ -10,8 +10,11 @@
 import UIKit
 import CoreLocation
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDelegate {
 
+    @IBOutlet weak var txtTarLong: UITextField!
+    @IBOutlet weak var txtTarLat: UITextField!
+    @IBOutlet weak var txtCourse: UILabel!
     @IBOutlet weak var imgMag1: UIImageView!
     @IBOutlet weak var imgTru: UIImageView!
     @IBOutlet weak var imgMag: UIImageView!
@@ -20,10 +23,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var txtHead: UILabel!
     @IBOutlet weak var txtMagAcc: UILabel!
     
+    @IBOutlet weak var txtTruAng: UILabel!
+    @IBOutlet weak var txtMagAng: UILabel!
     @IBOutlet weak var txtTrue: UILabel!
     
     var locationManger: CLLocationManager!
     var startLocation: CLLocation!
+    var prevLocation: CLLocation!
     var functRunner = Timer()
     var counter: CGFloat = 0.0
     var magH: CGFloat = 0.0
@@ -40,7 +46,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManger.requestWhenInUseAuthorization()
          locationManger.startUpdatingLocation()
         locationManger.startUpdatingHeading()
-       // self.functRunner = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.callULocation), userInfo: nil, repeats: true)
+       txtTarLat.delegate = self
+        txtTarLong.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,8 +61,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         startLocation = locations[0]
-        txtLat.text = String(format: "%.4f", startLocation.coordinate.latitude)
-        txtLong.text = String(format: "%.4f", startLocation.coordinate.longitude)
+        txtLat.text = String(format: "%.8f", startLocation.coordinate.latitude)
+        txtLong.text = String(format: "%.8f", startLocation.coordinate.longitude)
+        txtCourse.text = String(format: "%.4f", startLocation.course)
         
               
     }
@@ -73,6 +81,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
             self.rotateAngleH = 360 - self.magH
             self.rotateAngleT = 360 - self.truH
+            txtTruAng.text = String(format: "%.2f",rotateAngleT)
+            txtMagAng.text = String(format: "%.2f", rotateAngleH)
         UIView.animate(withDuration: 0.5, animations: {
             self.imgMag1.transform = CGAffineTransform(rotationAngle: CGFloat(self.rotateAngleH) * CGFloat(M_PI / 180.0))})
         
@@ -81,5 +91,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }
 
