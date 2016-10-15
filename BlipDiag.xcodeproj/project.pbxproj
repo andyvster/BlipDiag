@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC2059D21DB1DEF700E7DB91 /* d.png in Resources */ = {isa = PBXBuildFile; fileRef = AC2059D11DB1DEF700E7DB91 /* d.png */; };
+		AC2059D41DB1E04500E7DB91 /* z.png in Resources */ = {isa = PBXBuildFile; fileRef = AC2059D31DB1E04500E7DB91 /* z.png */; };
 		AC69A0BC1DB1714A0022248A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC69A0BB1DB1714A0022248A /* AppDelegate.swift */; };
 		AC69A0BE1DB1714A0022248A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC69A0BD1DB1714A0022248A /* ViewController.swift */; };
 		AC69A0C11DB1714A0022248A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC69A0BF1DB1714A0022248A /* Main.storyboard */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AC2059D11DB1DEF700E7DB91 /* d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = d.png; path = ../../../d.png; sourceTree = "<group>"; };
+		AC2059D31DB1E04500E7DB91 /* z.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = z.png; path = ../../../z.png; sourceTree = "<group>"; };
 		AC69A0B81DB1714A0022248A /* BlipDiag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlipDiag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC69A0BB1DB1714A0022248A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC69A0BD1DB1714A0022248A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -62,6 +66,8 @@
 				AC69A0BD1DB1714A0022248A /* ViewController.swift */,
 				AC69A0BF1DB1714A0022248A /* Main.storyboard */,
 				AC69A0C21DB1714A0022248A /* Assets.xcassets */,
+				AC2059D11DB1DEF700E7DB91 /* d.png */,
+				AC2059D31DB1E04500E7DB91 /* z.png */,
 				AC69A0C41DB1714A0022248A /* LaunchScreen.storyboard */,
 				AC69A0D11DB19A950022248A /* 8.png */,
 				AC69A0C71DB1714A0022248A /* Info.plist */,
@@ -130,6 +136,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC2059D21DB1DEF700E7DB91 /* d.png in Resources */,
+				AC2059D41DB1E04500E7DB91 /* z.png in Resources */,
 				AC69A0D21DB19A950022248A /* 8.png in Resources */,
 				AC69A0C61DB1714A0022248A /* LaunchScreen.storyboard in Resources */,
 				AC69A0C31DB1714A0022248A /* Assets.xcassets in Resources */,
@@ -308,6 +316,7 @@
 				AC69A0CC1DB1714A0022248A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
