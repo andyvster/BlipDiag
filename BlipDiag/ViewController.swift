@@ -29,6 +29,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
     @IBOutlet weak var txtMagAng: UILabel!
     @IBOutlet weak var txtTrue: UILabel!
     
+    @IBOutlet weak var txtDistInc: UILabel!
+    
     @IBOutlet weak var txtTarC: UILabel!
     @IBOutlet weak var txtTarH: UILabel!
     @IBOutlet weak var imgTarCs: UIImageView!
@@ -49,6 +51,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
     var bearing: CGFloat = 0.0
     var courseD: CGFloat = 0.0
     var targetLocation: CLLocationCoordinate2D!
+    
+    // New
+    var threshDist: CGFloat = 0.0
+    var firstRun: Int = 0
+    var offsetter: CGFloat = 0.0
+    var magAcc: CGFloat = 0.0
     
     @IBAction func goBut(_ sender: AnyObject) {
         self.targetLat = Double(txtTarLat.text!)!
@@ -79,23 +87,61 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        startLocation = locations[0]
-        txtLat.text = String(format: "%.8f", startLocation.coordinate.latitude)
-        txtLong.text = String(format: "%.8f", startLocation.coordinate.longitude)
-        
-        if startLocation.course != -1 {
-            self.courseD = CGFloat(startLocation.course)
+        if self.firstRun == 0 {
+            self.startLocation = locations[0]
+            self.firstRun = 1
         }
         
-        txtCourse.text = String(format: "%.4f", startLocation.course)
+        if startLocation != nil {
+            self.threshDist = CGFloat(startLocation.distance(from: locations[0])) * 3.28084
+            self.txtDistInc.text = String(format: "%.8f", self.threshDist)
+            if threshDist >= 50.0{
+                // get the course
+                self.courseD = getHeadingForDirectionFromCoordinate(fromLoc: startLocation.coordinate, toCoordinate: locations[0].coordinate)
+                self.startLocation = locations[0]
+                self.offsetter = self.magH - self.courseD
+                if targetLocation != nil{
+                    self.bearing = getHeadingForDirectionFromCoordinate(fromLoc: startLocation.coordinate, toCoordinate: targetLocation)
+                }
+            }
+        }
+        
+        
+        
+        //  startLocation = locations[0]
+        txtLat.text = String(format: "%.8f", locations[0].coordinate.latitude)
+        txtLong.text = String(format: "%.8f", locations[0].coordinate.longitude)
+        /*
+        if startLocation.course != -1 {
+            self.courseD = CGFloat(startLocation.course)
+        }*/
+        
+        txtCourse.text = String(format: "%.4f", self.courseD)
         if targetLocation != nil{
+            if self.magAcc >= 50 {
+                self.rotateAngleT = self.bearing - self.magH + self.offsetter
+            }else{
+                self.startLocation = locations[0]
+                self.bearing = getHeadingForDirectionFromCoordinate(fromLoc: startLocation.coordinate, toCoordinate: targetLocation)
+                self.rotateAngleT = self.bearing - self.magH
+            }
+            /* if self.bearing < 0 {
+             self.bearing = self.bearing + 360
+             }*/
+            txtBearTar.text = String(format: "%.4f", bearing)
+            getDistance()
+            rotateImages()
+        }
+        
+        
+        /*if targetLocation != nil{
             self.bearing = getHeadingForDirectionFromCoordinate(fromLoc: startLocation.coordinate, toCoordinate: targetLocation)
             if self.bearing < 0 {
                 self.bearing = self.bearing + 360
             }
             txtBearTar.text = String(format: "%.4f", bearing)
             getDistance()
-        }
+        }*/
         
     }
     
@@ -105,7 +151,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
         txtHead.text = String(format: "%.4f", magH)
         txtTrue.text = String(format: "%.4f", truH)
         txtMagAcc.text = String(format: "%.4f", newHeading.headingAccuracy)
+        self.magAcc = CGFloat(newHeading.headingAccuracy)
+        if self.magAcc >= 50 {
+            self.rotateAngleT = self.bearing - self.magH + self.offsetter
+        }else{
+            self.rotateAngleT = self.bearing - self.magH
+        }
+        
         rotateImages()
+    
     }
   
     
@@ -156,7 +210,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
     func rotateImages(){
         
             self.rotateAngleH = 360 - self.magH
-            self.rotateAngleT = 360 - self.truH
+         //   self.rotateAngleT = 360 - self.truH
             self.rotateAngleTH = self.bearing - self.magH
             self.rotateAngleTC = self.bearing - self.courseD
         
@@ -166,7 +220,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
         if rotateAngleTC < 0 {
             rotateAngleTC = rotateAngleTC + 360
         }
-        
+        if rotateAngleT < 0 {
+            rotateAngleT = rotateAngleT + 360
+        }
             txtTruAng.text = String(format: "%.2f",rotateAngleT)
             txtMagAng.text = String(format: "%.2f", rotateAngleH)
             txtTarH.text = String(format: "%.2f", rotateAngleTH)
